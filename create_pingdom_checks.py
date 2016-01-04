@@ -9,7 +9,6 @@
 # @param    Pingdom password
 # @param    Pingdom API key
 
-import csv
 import pingdomlib
 import sys
 import urlparse
@@ -32,8 +31,8 @@ with open(filename,'r') as pingdomChecksFile:
         url = urlparse.urlparse(check.rstrip())
         checkName = "{0}{1}".format(url[1], url[2])
         checkHost = "{0}".format(url[1])
-        checkType = "checktype='{0}'".format(url[0])
-        checkURL = "[url={0}]".format(url[2])
+        checkType = url[0]
+        kwargs = {'url':url[2]}
 
-        api.newCheck(checkName, checkHost, checkType, checkURL)
+        api.newCheck(checkName, checkHost, checkType, **kwargs)
         print "{0} check created successfully".format(checkName)
