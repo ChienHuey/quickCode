@@ -1,4 +1,4 @@
-first_byte_timeout 3s
-connect_timeout 1s
-dynamic true
-max_connections 200
+.first_byte_timeout 3s
+.connect_timeout 1s
+.dynamic true
+.max_connections 200
