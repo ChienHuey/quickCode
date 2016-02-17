@@ -11,16 +11,19 @@ from update_vcl_backends import update_backends_metrics
 
 __author__ = 'Chien Huey'
 
-vcl_root_directory = sys.argv[1]
-directives_file = sys.argv[2]
-
-
-def process_vcl_folder_recursively(vcl_root_directory):
-    for dirName, subdirlist, fileList in os.walk(vcl_root_directory):
+# function that does all the heavy lifting
+# recursively processes all the vcl files in the specified directory
+def process_vcl_folder_recursively(vcl_directory, directives):
+    for dirName, subdirlist, fileList in os.walk(vcl_directory):
         if subdirlist:
             for subfolder in subdirlist:
                 process_vcl_folder_recursively(subfolder)
     for vcl_file in fileList:
-        update_backends_metrics(vcl_file, directives_file)
+        update_backends_metrics(os.path.join(dirName, vcl_file), directives)
+
+vcl_root_directory = sys.argv[1]
+directives_file = sys.argv[2]
+
+process_vcl_folder_recursively(vcl_root_directory, directives_file)
 
 
