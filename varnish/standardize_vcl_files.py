@@ -17,7 +17,7 @@ def process_vcl_folder_recursively(vcl_directory, directives):
     for dirName, subdirlist, fileList in os.walk(vcl_directory):
         if subdirlist:
             for subfolder in subdirlist:
-                process_vcl_folder_recursively(subfolder)
+                process_vcl_folder_recursively(os.path.join(dirName, subfolder), directives)
     for vcl_file in fileList:
         update_backends_metrics(os.path.join(dirName, vcl_file), directives)
 
