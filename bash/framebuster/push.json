@@ -1,0 +1,34 @@
+{  
+  "application" : "aetn.devops.fastly",
+  "type" : "fastly",
+
+  "environments" : {
+
+    "dev" : {
+      "ref" : "refs/heads",
+      "servers" : [
+        {
+          "id" : "2moQwevn0ZlevmBB9EGGeM"
+        }
+      ]
+    },
+
+    "qa" : {
+      "ref" : "refs/heads/master",
+      "servers" : [
+        {
+          "id" : "3RwJySYyRnmqLWMXpFrF0Y"
+        }
+      ]
+    },
+
+    "prod" : {
+      "ref" : "refs/tags",
+      "servers" : [
+        {
+          "id" : "53AlG8wvz848UXwZGVFsKe"
+        }
+      ]
+    }
+  }
+}
