@@ -2,11 +2,14 @@
 # script to create a branch for each subdirectory
 # assumptions:
 #	- directories either have sub-directories or files, not both
+# - only works for 
 #
-# @param	 
+# @param	 directory where you want start traversing
+#
 function traverse_directory() {
 # track which directory we're in
 cur_dir=$1
+cd $cur_dir
 for entry in *
 do
 	echo "cur_dir:" $cur_dir
