@@ -47,9 +47,16 @@ def update_backend_metrics(backends_file, directives_file):
 
 # function that updates the specified backend shareids based on the directives file provided
 #
-# @param    backends_file       .vcl file with backend definitions
+# @param    backends_file       .vcl file with backend definitions - full file path
+# @param    vcl_file            .vcl filename - filename only no path
 #
-def  update_backend_shareids(backends_file):
+def  update_backend_shareids(backends_file, vcl_file):
+    # figure out which env the backend file is for and then use that env to update the backend shareid
+    env = ""
+    re_pattern_env = "(prod|dev|qa)\-.*\.vcl"
+    match_env = re.match(re_pattern_env, vcl_file)
+    if match_env:
+        env = match_env.group(match_env.lastindex)
     # empty array with the new file lines
     new_backends_file = []
     # last backend name - this variable needs to survive each iteration
@@ -61,7 +68,7 @@ def  update_backend_shareids(backends_file):
         match_backend = re.match(re_pattern_backend, vcl_line)
         if match_backend:
             last_backend_name = match_backend.group(match_backend.lastindex)
-            last_backend_name = last_backend_name.replace('_','')
+            last_backend_name = env + last_backend_name.replace('_','')
             match_backend = None
 
         # check for a match for the shareid
