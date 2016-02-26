@@ -7,7 +7,8 @@
 
 import os
 import sys
-from update_vcl_backends import update_backends_metrics
+from update_vcl_backends import update_backend_metrics
+from update_vcl_backends import update_backend_shareids
 
 __author__ = 'Chien Huey'
 
@@ -19,7 +20,8 @@ def process_vcl_folder_recursively(vcl_directory, directives):
             for subfolder in subdirlist:
                 process_vcl_folder_recursively(os.path.join(dirName, subfolder), directives)
     for vcl_file in fileList:
-        update_backends_metrics(os.path.join(dirName, vcl_file), directives)
+        update_backend_metrics(os.path.join(dirName, vcl_file), directives)
+        update_backend_shareids(os.path.join(dirName, vcl_file))
 
 vcl_root_directory = sys.argv[1]
 directives_file = sys.argv[2]
